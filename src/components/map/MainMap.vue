@@ -8,19 +8,25 @@
     <l-tile-layer
       :url="url"
       :attribution="attribution"
-    />     
+    />
+    <l-geo-json
+      v-for="(geoDatum, key) in geoData" 
+      :key="key" 
+      :geojson="geoDatum" 
+    />
   </l-map>
 </template>
 <script>
 import * as L from "leaflet";
-import { LMap, LTileLayer } from "vue2-leaflet";
+import { LMap, LTileLayer, LGeoJson } from "vue2-leaflet";
 import LDraw from "leaflet-draw";
 
 export default {
   name: "MainMap",
   components: {
     LMap,
-    LTileLayer
+    LTileLayer,
+    LGeoJson
   },
 
   data() {
@@ -36,6 +42,12 @@ export default {
         minZoom: 2
       },
     };
+  },
+
+  computed: { 
+    geoData() {
+      return this.$store.state['map/geoData'];
+    }
   },
 
   methods: {
@@ -64,9 +76,25 @@ export default {
       const editableLayers = new window.L.FeatureGroup().addTo(map);
 
       map.on(window.L.Draw.Event.CREATED, event => {
+        const type = event.layerType;
         const layer = event.layer;
+
         // Data Handling Would Happen Here..
-        editableLayers.addLayer(layer)
+        let geoDatum = {
+          "type": "Feature",
+          "properties": {
+            "name": "A Cool Feature",
+            "amenity": "A Cool Label",
+            "popupContent": "This is a cool area.."
+          },
+          "geometry": {
+            "type": type,
+            "coordinates": layer._latlngs[0]
+          }
+        };
+        this.$store.dispatch('map/addGeoDatum', geoDatum);
+
+        editableLayers.addLayer(layer);
       });
 
     });
