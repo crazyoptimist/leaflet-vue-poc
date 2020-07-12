@@ -65,8 +65,10 @@ export default {
 
       map.on(window.L.Draw.Event.CREATED, event => {
         const layer = event.layer;
+        // Data Handling Would Happen Here..
         editableLayers.addLayer(layer)
-      })
+      });
+
     });
   }
 
