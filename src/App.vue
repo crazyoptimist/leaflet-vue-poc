@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <div>
-      <v-tabs fixed-tabs dark>
+      <v-tabs dark>
         <v-tab to="/">Home</v-tab>
         <v-tab to="/about">About</v-tab>
       </v-tabs>

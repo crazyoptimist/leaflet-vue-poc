@@ -1,3 +1,5 @@
+import mapService from "@/services/map.service"
+
 export default {
   namespaced: true,
   state: {
@@ -9,8 +11,12 @@ export default {
     }
   },
   actions: {
-    addGeoDatum(context, geoDatum) {
-      context.commit('addGeoDatum', geoDatum)
+    async addGeoDatum(context, geoDatum) {
+      mapService.create(geoDatum).then(res => {
+        if(res) {
+          context.commit('addGeoDatum', geoDatum);
+        }
+      });
     }
   }
 };
