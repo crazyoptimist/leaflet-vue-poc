@@ -37,7 +37,7 @@ export default {
 
   computed: {
     geoData() {
-      return this.$store.state["map/geoData"];
+      return this.$store.getters["map/geoData"];
     }
   },
 
@@ -45,6 +45,10 @@ export default {
     notUsed() {
       // Prevent Lint Error
       console.log(LDraw);
+    },
+
+    capitalizeFirstLetter(str) {
+      return str.charAt(0).toUpperCase() + str.slice(1);
     }
   },
 
@@ -72,19 +76,20 @@ export default {
 
         // Data Handling Would Happen Here..
         let geoDatum = {
-          type: "Feature",
-          properties: {
-            name: "A Cool Feature",
-            amenity: "A Cool Label",
-            popupContent: "This is a cool area.."
+          "type": "Feature",
+          "properties": {
+            "name": "A Cool Feature",
+            "amenity": "A Cool Label",
+            "popupContent": "This is a cool area.."
           },
-          geometry: {
-            type: type,
-            coordinates: layer._latlngs[0]
+          "geometry": {
+            "type": this.capitalizeFirstLetter(type),
+            "coordinates": [layer._latlngs[0].map(latLng => {
+              return [latLng.lat, latLng.lng];
+            })]
           }
         };
         this.$store.dispatch("map/addGeoDatum", geoDatum);
-
         editableLayers.addLayer(layer);
       });
     });
