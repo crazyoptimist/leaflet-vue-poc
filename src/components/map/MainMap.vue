@@ -88,7 +88,12 @@ export default {
         editableLayers.addLayer(layer);
       });
     });
+  },
+
+  async beforeCreate() {
+    await this.$store.dispatch("map/loadGeoData");
   }
+  
 };
 </script>
 
