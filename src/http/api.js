@@ -1,11 +1,8 @@
 import axios from "axios";
-import {
-  beforeRequest,
-  afterResponse
-} from "./interceptors";
+import { beforeRequest, afterResponse } from "./interceptors";
 
 const options = {
-  baseURL: process.env.VUE_APP_API_URL || "http://localhost:3000",
+  baseURL: process.env.VUE_APP_API_URL || "http://localhost:3000"
 };
 
 const api = axios.create(options);
@@ -22,7 +19,7 @@ api.interceptors.request.use(
 
 api.interceptors.response.use(
   response => {
-    response = afterResponse(response)
+    response = afterResponse(response);
     return response;
   },
   error => {

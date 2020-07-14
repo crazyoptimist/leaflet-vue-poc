@@ -1,21 +1,17 @@
 <template>
   <v-app>
-    <div>
-      <v-tabs dark>
-        <v-tab to="/">Home</v-tab>
-        <v-tab to="/about">About</v-tab>
-      </v-tabs>
-    </div>
+    <AppBar />
     <router-view></router-view>
   </v-app>
 </template>
 
 <script>
-
+import AppBar from "@/views/shared/AppBar.vue";
 export default {
   name: "App",
 
   components: {
+    AppBar
   },
 
   data: () => ({

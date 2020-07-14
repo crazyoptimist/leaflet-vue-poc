@@ -1,18 +1,10 @@
 <template>
-  <l-map
-    ref="map"
-    :zoom="zoom"
-    :center="center"
-    :options="mapOptions"
-  >
-    <l-tile-layer
-      :url="url"
-      :attribution="attribution"
-    />
+  <l-map ref="map" :zoom="zoom" :center="center" :options="mapOptions">
+    <l-tile-layer :url="url" :attribution="attribution" />
     <l-geo-json
-      v-for="(geoDatum, key) in geoData" 
-      :key="key" 
-      :geojson="geoDatum" 
+      v-for="(geoDatum, key) in geoData"
+      :key="key"
+      :geojson="geoDatum"
     />
   </l-map>
 </template>
@@ -33,20 +25,19 @@ export default {
     return {
       zoom: 7,
       center: L.latLng(40, 270),
-      url: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      attribution:
-        '&copy; <a href="/about">Crazy Optimist</a>',
+      url: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      attribution: '&copy; <a href="/about">Crazy Optimist</a>',
       mapOptions: {
         zoomSnap: 0.5,
         maxZoom: 18,
         minZoom: 2
-      },
+      }
     };
   },
 
-  computed: { 
+  computed: {
     geoData() {
-      return this.$store.state['map/geoData'];
+      return this.$store.state["map/geoData"];
     }
   },
 
@@ -61,7 +52,7 @@ export default {
     this.$nextTick(() => {
       const map = this.$refs.map.mapObject;
       const drawControl = new window.L.Control.Draw({
-        position: 'topright',
+        position: "topright",
         draw: {
           polyline: false,
           polygon: {},
@@ -81,31 +72,29 @@ export default {
 
         // Data Handling Would Happen Here..
         let geoDatum = {
-          "type": "Feature",
-          "properties": {
-            "name": "A Cool Feature",
-            "amenity": "A Cool Label",
-            "popupContent": "This is a cool area.."
+          type: "Feature",
+          properties: {
+            name: "A Cool Feature",
+            amenity: "A Cool Label",
+            popupContent: "This is a cool area.."
           },
-          "geometry": {
-            "type": type,
-            "coordinates": layer._latlngs[0]
+          geometry: {
+            type: type,
+            coordinates: layer._latlngs[0]
           }
         };
-        this.$store.dispatch('map/addGeoDatum', geoDatum);
+        this.$store.dispatch("map/addGeoDatum", geoDatum);
 
         editableLayers.addLayer(layer);
       });
-
     });
   }
-
 };
 </script>
 
 <style scoped>
-  .main-map {
-    width: 100%;
-    height: 100%;
-  }
+.main-map {
+  width: 100%;
+  height: 100%;
+}
 </style>
