@@ -84,9 +84,7 @@ export default {
           },
           "geometry": {
             "type": this.capitalizeFirstLetter(type),
-            "coordinates": [layer._latlngs[0].map(latLng => {
-              return [latLng.lat, latLng.lng];
-            })]
+            "coordinates": layer._latlngs[0]
           }
         };
         this.$store.dispatch("map/addGeoDatum", geoDatum);
