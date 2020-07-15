@@ -37,6 +37,10 @@ export default {
     },
     loadGeoData(state, geoData) {
       state.geoData = geoData;
+    },
+    purgeGeoData(state, purgedAmount) {
+      state.geoData = [];
+      window.alert(`All ${purgedAmount} features have been removed from the database.`);
     }
   },
 
@@ -55,7 +59,16 @@ export default {
           context.commit("loadGeoData", res.data);
         }
       });
+    },
+
+    async purgeGeoData(context) {
+      mapService.destroy_all().then(res => {
+        if (res) {
+          context.commit("purgeGeoData", res.data);
+        }
+      });
     }
+
   }
 
 };

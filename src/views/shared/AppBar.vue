@@ -16,7 +16,7 @@ export default {
   name: "AppBar",
   methods: {
     clearGeoData() {
-      window.console.log("I'm going to purge db..");
+      this.$store.dispatch("map/purgeGeoData");
     }
   }
 };

@@ -14,6 +14,6 @@ export default {
     return api.delete(`/api/v1/geo_datum/${id}`, payload);
   },
   async destroy_all() {
-    return api.delete("/api/v1/geo_data");
+    return api.delete("/api/v1/geo_data/delete_all");
   }
 };
