@@ -20,7 +20,8 @@ export default {
           "geometry": {
             "type": geoDatum.geometry.type,
             "coordinates": [geoDatum.geometry.coordinates.map(latLng => {
-              return [latLng.lat, latLng.lng];
+              // Caution! Here we exchange lat and lng which is because of different standards - GEO RSS and GEO JSON
+              return [latLng.lng, latLng.lat];
             })]
           }
         }
@@ -35,7 +36,7 @@ export default {
       state.geoData.push(geoDatum);
     },
     loadGeoData(state, geoData) {
-      state.geoData = state.geoData.concat(geoData);
+      state.geoData = geoData;
     }
   },
 
